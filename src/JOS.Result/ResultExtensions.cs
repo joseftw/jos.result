@@ -2,7 +2,7 @@
 
 namespace JOS.Result
 {
-    public static class ResultExtension
+    public static class ResultExtensions
     {
         public static Result MissingPatternMatch(this Result result)
         {

@@ -57,7 +57,7 @@ namespace JOS.Result
             Errors = errors ?? Array.Empty<Error>();
         }
 
-        public string Message { get; protected set; }
+        public string Message { get; }
         public IReadOnlyCollection<Error> Errors { get; }
     }
 
@@ -75,7 +75,7 @@ namespace JOS.Result
             Errors = errors ?? Array.Empty<Error>();
         }
 
-        public string Message { get; protected set; }
+        public string Message { get; set; }
         public IReadOnlyCollection<Error> Errors { get; }
     }
 

@@ -21,6 +21,19 @@ namespace JOS.Result.Benchmarks
             }
         }
 
+        [Benchmark(OperationsPerInvoke = 100000)]
+        public MyData NotFoundThrowWithException()
+        {
+            try
+            {
+                return GetMyDataThrow();
+            }
+            catch (Exception exception)
+            {
+                return null;
+            }
+        }
+
         [Benchmark (OperationsPerInvoke = 100000)]
         public Result<MyData> NotFoundResult()
         {

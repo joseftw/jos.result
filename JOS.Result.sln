@@ -16,7 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{F821339A-F
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JOS.Result.Benchmarks", "test\JOS.Result.Benchmarks\JOS.Result.Benchmarks.csproj", "{213B5372-6C3A-4712-8E33-46583E719FF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JOS.Result.Benchmarks", "test\JOS.Result.Benchmarks\JOS.Result.Benchmarks.csproj", "{213B5372-6C3A-4712-8E33-46583E719FF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JOS.Result.BlogExamples", "test\JOS.Result.BlogExamples\JOS.Result.BlogExamples.csproj", "{81234774-C14D-4C05-816D-2A3ACC2200F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{213B5372-6C3A-4712-8E33-46583E719FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{213B5372-6C3A-4712-8E33-46583E719FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{213B5372-6C3A-4712-8E33-46583E719FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81234774-C14D-4C05-816D-2A3ACC2200F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81234774-C14D-4C05-816D-2A3ACC2200F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81234774-C14D-4C05-816D-2A3ACC2200F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81234774-C14D-4C05-816D-2A3ACC2200F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{1BC8946A-07D3-4CE0-8558-5CF56849F7D6} = {941106C4-C2F9-4A05-83D3-268FF45FDB4B}
 		{78D36481-E7E9-4C7D-B1AB-5AB277A49704} = {94BB43DA-1FDA-4AAE-ACF6-0FB02A574E4D}
 		{213B5372-6C3A-4712-8E33-46583E719FF8} = {94BB43DA-1FDA-4AAE-ACF6-0FB02A574E4D}
+		{81234774-C14D-4C05-816D-2A3ACC2200F9} = {94BB43DA-1FDA-4AAE-ACF6-0FB02A574E4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC546C1B-6580-46F9-AA71-2541FFFD748E}

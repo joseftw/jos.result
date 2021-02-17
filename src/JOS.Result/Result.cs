@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 
 namespace JOS.Result
 {
@@ -79,81 +77,6 @@ namespace JOS.Result
         public IReadOnlyCollection<Error> Errors { get; }
     }
 
-    public class RetryResult : ErrorResult
-    {
-        public RetryResult(string message) : base(message)
-        {
-            
-        }
-
-        public RetryResult(string message, IReadOnlyCollection<Error> errors) : base(message, errors)
-        {
-            
-        }
-    }
-
-    public class RetryResult<T> : ErrorResult<T>
-    {
-        public RetryResult(string message) : base(message)
-        {
-        }
-
-        public RetryResult(string message, IReadOnlyCollection<Error> errors) : base(message, errors)
-        {
-        }
-    }
-
-    public class HttpErrorResult : ErrorResult, IHttpErrorResult
-    {
-        public HttpErrorResult(string message) : this(message, Array.Empty<Error>())
-        {
-
-        }
-
-        public HttpErrorResult(string message, IReadOnlyCollection<Error> errors) : this(message, errors, null)
-        {
-        }
-
-        public HttpErrorResult(string message, IReadOnlyCollection<Error> errors, HttpResponseMessage response = default, HttpStatusCode statusCode = default) : base(message, errors)
-        {
-            Response = response;
-            StatusCode = statusCode;
-        }
-
-        public HttpResponseMessage Response { get; }
-        public HttpStatusCode StatusCode { get; }
-
-        public void Dispose()
-        {
-            Response?.Dispose();
-        }
-    }
-
-    public class HttpErrorResult<T> : ErrorResult<T>, IHttpErrorResult
-    {
-        public HttpErrorResult(string message) : base(message)
-        {
-        }
-
-        public HttpErrorResult(string message, IReadOnlyCollection<Error> errors) : base(message, errors)
-        {
-        }
-
-        public HttpErrorResult(string message, IReadOnlyCollection<Error> errors, HttpResponseMessage response = default, HttpStatusCode statusCode = default) : base(message, errors)
-        {
-            Response = response;
-            StatusCode = statusCode;
-        }
-
-        public HttpResponseMessage Response { get; }
-        public HttpStatusCode StatusCode { get; }
-
-        public void Dispose()
-        {
-            Response?.Dispose();
-        }
-    }
-
     public class Error
     {
         public Error(string details) : this(null, details)
@@ -175,11 +98,5 @@ namespace JOS.Result
     {
         string Message { get; }
         IReadOnlyCollection<Error> Errors { get; }
-    }
-
-    internal interface IHttpErrorResult : IDisposable
-    {
-        HttpResponseMessage Response { get; }
-        HttpStatusCode StatusCode { get; }
     }
 }

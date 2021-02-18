@@ -24,9 +24,9 @@ namespace JOS.Result.BlogExamples
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IGetHamburgersQuery, InMemoryGetHamburgersQuery>();
-            services.AddSingleton<IGetHamburgersResultQuery, InMemoryGetHamburgersResultQuery>();
-            services.AddSingleton<IGetHamburgersJosResultQuery, InMemoryGetHamburgersJosResultQuery>();
+            services.AddSingleton<IGetHamburgerQuery, InMemoryGetHamburgerQuery>();
+            services.AddSingleton<IGetHamburgerResultQuery, InMemoryGetHamburgerResultQuery>();
+            services.AddSingleton<IGetHamburgerJosResultQuery, InMemoryGetHamburgerJosResultQuery>();
             services.AddControllers();
         }
 

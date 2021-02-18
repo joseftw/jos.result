@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 
 namespace JOS.Result.BlogExamples.Controllers
 {
@@ -8,27 +7,27 @@ namespace JOS.Result.BlogExamples.Controllers
     [Route("[controller]")]
     public class HamburgersController : ControllerBase
     {
-        private readonly IGetHamburgersQuery _getHamburgersQuery;
-        private readonly IGetHamburgersResultQuery _getHamburgersResultQuery;
-        private readonly IGetHamburgersJosResultQuery _getHamburgersJosResultQuery;
+        private readonly IGetHamburgerQuery _getHamburgerQuery;
+        private readonly IGetHamburgerResultQuery _getHamburgerResultQuery;
+        private readonly IGetHamburgerJosResultQuery _getHamburgerJosResultQuery;
 
         public HamburgersController(
-            IGetHamburgersQuery getHamburgersQuery,
-            IGetHamburgersResultQuery getHamburgersResultQuery,
-            IGetHamburgersJosResultQuery getHamburgersJosResultQuery)
+            IGetHamburgerQuery getHamburgerQuery,
+            IGetHamburgerResultQuery getHamburgerResultQuery,
+            IGetHamburgerJosResultQuery getHamburgerJosResultQuery)
         {
-            _getHamburgersQuery = getHamburgersQuery ?? throw new ArgumentNullException(nameof(getHamburgersQuery));
-            _getHamburgersResultQuery = getHamburgersResultQuery ?? throw new ArgumentNullException(nameof(getHamburgersResultQuery));
-            _getHamburgersJosResultQuery = getHamburgersJosResultQuery ?? throw new ArgumentNullException(nameof(getHamburgersJosResultQuery));
+            _getHamburgerQuery = getHamburgerQuery ?? throw new ArgumentNullException(nameof(getHamburgerQuery));
+            _getHamburgerResultQuery = getHamburgerResultQuery ?? throw new ArgumentNullException(nameof(getHamburgerResultQuery));
+            _getHamburgerJosResultQuery = getHamburgerJosResultQuery ?? throw new ArgumentNullException(nameof(getHamburgerJosResultQuery));
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Hamburger>> Get()
+        [HttpGet("{name}")]
+        public ActionResult<Hamburger> Get(string name)
         {
             try
             {
-                var hamburgers = _getHamburgersQuery.Execute();
-                return new OkObjectResult(hamburgers);
+                var hamburger = _getHamburgerQuery.Execute(name);
+                return new OkObjectResult(hamburger);
             }
             catch (NotFoundException)
             {
@@ -40,16 +39,16 @@ namespace JOS.Result.BlogExamples.Controllers
             }
         }
 
-        [HttpGet("result")]
-        public ActionResult<IEnumerable<Hamburger>> GetResult()
+        [HttpGet("result/{name}")]
+        public ActionResult<Hamburger> GetResult(string name)
         {
-            var hamburgersResult = _getHamburgersResultQuery.Execute();
-            if (hamburgersResult.Success)
+            var hamburgerResult = _getHamburgerResultQuery.Execute(name);
+            if (hamburgerResult.Success)
             {
-                return new OkObjectResult(hamburgersResult.Value);
+                return new OkObjectResult(hamburgerResult.Value);
             }
 
-            if (hamburgersResult.Error.Equals("Could not find any hamburgers"))
+            if (hamburgerResult.Error.Equals($"Could not find any hamburger named '{name}'"))
             {
                 return new NotFoundResult();
             }
@@ -57,15 +56,15 @@ namespace JOS.Result.BlogExamples.Controllers
             return new StatusCodeResult(500);
         }
 
-        [HttpGet("jos-result")]
-        public ActionResult<IEnumerable<Hamburger>> GetJosResult()
+        [HttpGet("jos-result/{name}")]
+        public ActionResult<Hamburger> GetJosResult(string name)
         {
-            var hamburgersResult = _getHamburgersJosResultQuery.Execute();
-            return hamburgersResult switch
+            var hamburgerResult = _getHamburgerJosResultQuery.Execute(name);
+            return hamburgerResult switch
             {
-                SuccessResult<IReadOnlyCollection<Hamburger>> successResult => new OkObjectResult(successResult.Data),
-                NotFoundResult<IReadOnlyCollection<Hamburger>> notFoundResult => new NotFoundResult(),
-                ErrorResult<IReadOnlyCollection<Hamburger>> errorResult => new StatusCodeResult(500),
+                SuccessResult<Hamburger> successResult => new OkObjectResult(successResult.Data),
+                NotFoundResult<Hamburger> notFoundResult => new NotFoundResult(),
+                ErrorResult<Hamburger> errorResult => new StatusCodeResult(500),
                 _ => new StatusCodeResult(500)
             };
         }

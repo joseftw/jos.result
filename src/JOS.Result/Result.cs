@@ -90,6 +90,11 @@ namespace JOSResult
         {
             return new ErrorResult(errorResult.Message, errorResult.Errors);
         }
+
+        public virtual ErrorResult<TType> ToGeneric<TType>()
+        {
+            return new ErrorResult<TType>(Message, Errors);
+        }
     }
 
     public class Error

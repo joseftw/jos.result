@@ -1,4 +1,5 @@
 ﻿using System;
+using JOSResult;
 using NSubstitute;
 using Shouldly;
 using Xunit;

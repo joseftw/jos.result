@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JOS.Result
+namespace JOSResult
 {
     public static class ResultExtensions
     {

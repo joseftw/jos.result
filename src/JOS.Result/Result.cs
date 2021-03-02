@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace JOS.Result
+namespace JOSResult
 {
     public abstract class Result
     {
@@ -39,6 +39,11 @@ namespace JOS.Result
         {
             Success = true;
         }
+
+        public static implicit operator SuccessResult(SuccessResult<T> successResult)
+        {
+            return new SuccessResult();
+        }
     }
 
     public class ErrorResult : Result, IErrorResult
@@ -57,6 +62,11 @@ namespace JOS.Result
 
         public string Message { get; }
         public IReadOnlyCollection<Error> Errors { get; }
+
+        public virtual ErrorResult<T> ToGeneric<T>()
+        {
+            return new ErrorResult<T>(Message, Errors);
+        }
     }
 
     public class ErrorResult<T> : Result<T>, IErrorResult
@@ -75,6 +85,11 @@ namespace JOS.Result
 
         public string Message { get; set; }
         public IReadOnlyCollection<Error> Errors { get; }
+
+        public static implicit operator ErrorResult(ErrorResult<T> errorResult)
+        {
+            return new ErrorResult(errorResult.Message, errorResult.Errors);
+        }
     }
 
     public class Error

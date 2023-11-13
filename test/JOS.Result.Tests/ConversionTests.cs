@@ -1,42 +1,40 @@
 ﻿using System.Collections.Generic;
-using JOSResult;
 using Shouldly;
 using Xunit;
 
-namespace JOS.Result.Tests
+namespace JOS.Result.Tests;
+
+public class ConversionTests
 {
-    public class ConversionTests
+    [Fact]
+    public void CanConvertImplicitlyFromGenericErrorResultToErrorResult()
     {
-        [Fact]
-        public void CanConvertImplicitlyFromGenericErrorResultToErrorResult()
-        {
-            var genericErrorResult = new ErrorResult<MyData>("Some error", new List<Error> {new Error("some details")});
+        var genericErrorResult = new ErrorResult<MyData>("Some error", new List<Error> {new Error("some details")});
 
-            ErrorResult errorResult = genericErrorResult;
+        ErrorResult errorResult = genericErrorResult;
 
-            errorResult.Message.ShouldBe(genericErrorResult.Message);
-            errorResult.Errors.ShouldBe(genericErrorResult.Errors);
-        }
+        errorResult.Message.ShouldBe(genericErrorResult.Message);
+        errorResult.Errors.ShouldBe(genericErrorResult.Errors);
+    }
 
-        [Fact]
-        public void CanConvertImplicitlyFromGenericSuccessResultToSuccessResult()
-        {
-            var genericSuccessResult = new SuccessResult<MyData>(new MyData());
+    [Fact]
+    public void CanConvertImplicitlyFromGenericSuccessResultToSuccessResult()
+    {
+        var genericSuccessResult = new SuccessResult<MyData>(new MyData());
 
-            SuccessResult successResult = genericSuccessResult;
+        SuccessResult successResult = genericSuccessResult;
 
-            successResult.Success.ShouldBeTrue();
-        }
+        successResult.Success.ShouldBeTrue();
+    }
 
-        [Fact]
-        public void ShouldMapErrorResultToGenericErrorResultCorrectly()
-        {
-            var errorResult = new ErrorResult("My error", new List<Error> {new Error("some details")});
+    [Fact]
+    public void ShouldMapErrorResultToGenericErrorResultCorrectly()
+    {
+        var errorResult = new ErrorResult("My error", new List<Error> {new Error("some details")});
 
-            var genericErrorResult = errorResult.ToGeneric<MyData>();
+        var genericErrorResult = errorResult.ToGeneric<MyData>();
 
-            genericErrorResult.Message.ShouldBe(errorResult.Message);
-            genericErrorResult.Errors.ShouldBe(genericErrorResult.Errors);
-        }
+        genericErrorResult.Message.ShouldBe(errorResult.Message);
+        genericErrorResult.Errors.ShouldBe(genericErrorResult.Errors);
     }
 }

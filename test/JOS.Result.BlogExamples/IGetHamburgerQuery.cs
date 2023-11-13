@@ -1,6 +1,4 @@
-﻿using JOSResult;
-
-namespace JOS.Result.BlogExamples
+﻿namespace JOS.Result.BlogExamples
 {
     public interface IGetHamburgerQuery
     {

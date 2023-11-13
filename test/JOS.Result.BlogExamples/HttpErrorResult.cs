@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using JOSResult;
 
 namespace JOS.Result.BlogExamples
 {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using JOSResult;
 
 namespace JOS.Result.BlogExamples.Controllers
 {

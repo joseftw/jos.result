@@ -24,6 +24,6 @@ jobs:
         run: dotnet test -c Release
       - name: Pack JOS.Result ${{ steps.nbgv.outputs.nugetpackageversion }}
         run: dotnet pack src/JOS.Result/JOS.Result.csproj -c Release -o ./nuget-packages --no-build
-      - name: Push version ${{ steps.nbgv.outputs.nugetpackageversion }} packages
-        run: dotnet nuget push ./nuget-packages/** --source nuget.org --api-key ${{secrets.NUGET_API_KEY}}
+      #- name: Push version ${{ steps.nbgv.outputs.nugetpackageversion }} packages
+      #  run: dotnet nuget push ./nuget-packages/** --source nuget.org --api-key ${{secrets.NUGET_API_KEY}}
 

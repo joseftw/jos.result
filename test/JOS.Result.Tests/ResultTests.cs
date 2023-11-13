@@ -29,7 +29,7 @@ public class ResultTests
     [Fact]
     public void SuccessShouldBeTrueForGenericSuccessResult()
     {
-        var result = new SucceededResult<object>(null);
+        var result = new SucceededResult<object>(null!);
 
         result.Succeeded.ShouldBeTrue();
         result.Failed.ShouldBeFalse();

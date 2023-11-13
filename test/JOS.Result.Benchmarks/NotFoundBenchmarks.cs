@@ -17,7 +17,7 @@ public class NotFoundBenchmarks
         }
         catch (Exception)
         {
-            return null;
+            return null!;
         }
     }
 
@@ -30,7 +30,7 @@ public class NotFoundBenchmarks
         }
         catch (Exception)
         {
-            return null;
+            return null!;
         }
     }
 
@@ -38,7 +38,7 @@ public class NotFoundBenchmarks
     public Result<MyData> NotFoundResult()
     {
         var result = GetMyDataErrorResult();
-        return result.Succeeded ? result : null;
+        return result.Succeeded ? result : null!;
     }
 
     private static MyData GetMyDataThrow()

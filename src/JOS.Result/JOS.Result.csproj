@@ -5,6 +5,7 @@
     <DebugType>embedded</DebugType>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <LangVersion>Latest</LangVersion>
+    <IsPackable>true</IsPackable>
     <Nullable>enable</Nullable>
     <PackageId>JOS.Result</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>

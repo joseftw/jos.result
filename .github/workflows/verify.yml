@@ -22,8 +22,8 @@ jobs:
           dotnet-quality: 'ga'
       - name: Build and Test Version ${{ steps.nbgv.outputs.nugetpackageversion }}
         run: dotnet test -c Release
-      - name: Pack JOS.Result ${{ steps.nbgv.outputs.nugetpackageversion }}
-        run: dotnet pack src/JOS.Result/JOS.Result.csproj -c Release -o ./nuget-packages --no-build
+      - name: Pack JOS.Result.sln ${{ steps.nbgv.outputs.nugetpackageversion }}
+        run: dotnet pack JOS.Result.sln -c Release -o ./nuget-packages --no-build
       - name: Store nuget packages as artifacts
         uses: actions/upload-artifact@v3
         with:

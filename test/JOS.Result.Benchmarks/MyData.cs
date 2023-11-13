@@ -1,7 +1,6 @@
-﻿namespace JOS.Result.Benchmarks
+﻿namespace JOS.Result.Benchmarks;
+
+public class MyData
 {
-    public class MyData
-    {
-        public string Hello => "Hello";
-    }
+    public string Hello => "Hello";
 }

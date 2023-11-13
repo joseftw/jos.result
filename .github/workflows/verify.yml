@@ -1,0 +1,31 @@
+name: Verify
+
+on:
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    timeout-minutes: 10
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: dotnet/nbgv@master
+        id: nbgv
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            8.0.x
+          dotnet-quality: 'ga'
+      - name: Build and Test Version ${{ steps.nbgv.outputs.nugetpackageversion }}
+        run: dotnet test -c Release
+      - name: Pack JOS.Result ${{ steps.nbgv.outputs.nugetpackageversion }}
+        run: dotnet pack src/JOS.Result/JOS.Result.csproj -c Release -o ./nuget-packages --no-build
+      - name: Store nuget packages as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: nuget-packages
+          path: "nuget-packages/"

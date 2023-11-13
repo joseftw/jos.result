@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace JOS.Result.Tests;
@@ -9,32 +8,20 @@ public class ConversionTests
     [Fact]
     public void CanConvertImplicitlyFromGenericErrorResultToErrorResult()
     {
-        var genericErrorResult = new ErrorResult<MyData>("Some error", new List<Error> {new Error("some details")});
+        var result = new FailedResult<MyData>(new Error("Some error", "Any"));
 
-        ErrorResult errorResult = genericErrorResult;
+        FailedResult failedResult = result;
 
-        errorResult.Message.ShouldBe(genericErrorResult.Message);
-        errorResult.Errors.ShouldBe(genericErrorResult.Errors);
+        failedResult.Error!.ErrorMessage.ShouldBe(result.Error!.ErrorMessage);
     }
 
     [Fact]
     public void CanConvertImplicitlyFromGenericSuccessResultToSuccessResult()
     {
-        var genericSuccessResult = new SuccessResult<MyData>(new MyData());
+        var genericSuccessResult = new SucceededResult<MyData>(new MyData());
 
-        SuccessResult successResult = genericSuccessResult;
+        SucceededResult successResult = genericSuccessResult;
 
-        successResult.Success.ShouldBeTrue();
-    }
-
-    [Fact]
-    public void ShouldMapErrorResultToGenericErrorResultCorrectly()
-    {
-        var errorResult = new ErrorResult("My error", new List<Error> {new Error("some details")});
-
-        var genericErrorResult = errorResult.ToGeneric<MyData>();
-
-        genericErrorResult.Message.ShouldBe(errorResult.Message);
-        genericErrorResult.Errors.ShouldBe(genericErrorResult.Errors);
+        successResult.Succeeded.ShouldBeTrue();
     }
 }

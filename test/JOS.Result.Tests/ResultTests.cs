@@ -10,7 +10,7 @@ public class ResultTests
     [Fact]
     public void ShouldThrowExceptionWhenTryingToAccessDataOnErrorResultWhenSuccessIsFalse()
     {
-        var result = new ErrorResult<MyData>("error from test");
+        var result = Result.Failure<MyData>(new Error("error from test", "any"));
 
         var exception = Should.Throw<Exception>(() => result.Data);
 
@@ -20,44 +20,44 @@ public class ResultTests
     [Fact]
     public void SuccessShouldBeTrueForSuccessResult()
     {
-        var result = new SuccessResult();
+        var result = new SucceededResult();
 
-        result.Success.ShouldBeTrue();
-        result.Failure.ShouldBeFalse();
+        result.Succeeded.ShouldBeTrue();
+        result.Failed.ShouldBeFalse();
     }
 
     [Fact]
     public void SuccessShouldBeTrueForGenericSuccessResult()
     {
-        var result = new SuccessResult<object>(null);
+        var result = new SucceededResult<object>(null);
 
-        result.Success.ShouldBeTrue();
-        result.Failure.ShouldBeFalse();
+        result.Succeeded.ShouldBeTrue();
+        result.Failed.ShouldBeFalse();
     }
 
     [Fact]
     public void FailureShouldBeTrueForErrorResult()
     {
-        var result = new ErrorResult("error from test");
+        var result = new FailedResult(new Error("error from test", "any"));
 
-        result.Failure.ShouldBeTrue();
-        result.Success.ShouldBeFalse();
+        result.Failed.ShouldBeTrue();
+        result.Succeeded.ShouldBeFalse();
     }
 
     [Fact]
     public void FailureShouldBeTrueForGenericErrorResult()
     {
-        var result = new ErrorResult<object>("error from test");
+        var result = new FailedResult<object>(new Error("error from test", "any"));
 
-        result.Failure.ShouldBeTrue();
-        result.Success.ShouldBeFalse();
+        result.Failed.ShouldBeTrue();
+        result.Succeeded.ShouldBeFalse();
     }
 
     [Fact]
     public void ShouldBeAbleToReturnSuccessResultForResult()
     {
         var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new SuccessResult();
+        var returnResult = new SucceededResult();
         sut.Execute().Returns(returnResult);
 
         var result = sut.Execute();
@@ -69,7 +69,7 @@ public class ResultTests
     public void ShouldBeAbleToReturnGenericSuccessResultForResult()
     {
         var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new SuccessResult<MyData>(new MyData());
+        var returnResult = new SucceededResult<MyData>(new MyData());
         sut.Execute().Returns(returnResult);
 
         var result = sut.Execute();
@@ -81,7 +81,7 @@ public class ResultTests
     public void ShouldBeAbleToReturnErrorResultForResult()
     {
         var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new ErrorResult("error from test");
+        var returnResult = new FailedResult(new Error("error from test", "any"));
         sut.Execute().Returns(returnResult);
 
         var result = sut.Execute();
@@ -93,7 +93,7 @@ public class ResultTests
     public void ShouldBeAbleToReturnGenericErrorResultForResult()
     {
         var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new ErrorResult<MyData>("error from test");
+        var returnResult = new FailedResult<MyData>(new Error("error from test", "any"));
         sut.Execute().Returns(returnResult);
 
         var result = sut.Execute();
@@ -105,7 +105,7 @@ public class ResultTests
     public void ShouldBeAbleToReturnGenericSuccessResultForGenericResult()
     {
         var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new SuccessResult<MyData>(new MyData());
+        var returnResult = new SucceededResult<MyData>(new MyData());
         sut.ExecuteGeneric().Returns(returnResult);
 
         var result = sut.ExecuteGeneric();
@@ -117,45 +117,11 @@ public class ResultTests
     public void ShouldBeAbleToReturnGenericErrorResultForGenericResult()
     {
         var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new ErrorResult<MyData>("error from test");
+        var returnResult = new FailedResult<MyData>(new Error("error from test", "any"));
         sut.ExecuteGeneric().Returns(returnResult);
 
         var result = sut.ExecuteGeneric();
 
         result.ShouldBe(returnResult);
-    }
-
-    [Fact]
-    public void ShouldBeAbleToPatternMatchResult()
-    {
-        var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new SuccessResult();
-        sut.Execute().Returns(returnResult);
-
-        var result = sut.Execute();
-
-        _ = result switch
-        {
-            SuccessResult successResult => successResult,
-            ErrorResult errorResult => errorResult,
-            _ => result.MissingPatternMatch()
-        };
-    }
-
-    [Fact]
-    public void ShouldBeAbleToPatternMatchGenericResult()
-    {
-        var sut = Substitute.For<IDummyInterface>();
-        var returnResult = new SuccessResult<MyData>(new MyData());
-        sut.ExecuteGeneric().Returns(returnResult);
-
-        var result = sut.ExecuteGeneric();
-
-        _ = result switch
-        {
-            SuccessResult<MyData> successResult => successResult,
-            ErrorResult<MyData> errorResult => errorResult,
-            _ => result.MissingPatternMatch()
-        };
     }
 }

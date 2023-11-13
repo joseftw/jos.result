@@ -2,70 +2,69 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 
-namespace JOS.Result.Benchmarks
+namespace JOS.Result.Benchmarks;
+
+[MemoryDiagnoser]
+[SimpleJob(RuntimeMoniker.Net80)]
+public class NotFoundBenchmarks
 {
-    [MemoryDiagnoser]
-    [SimpleJob(RuntimeMoniker.NetCoreApp50)]
-    public class NotFoundBenchmarks
+    [Benchmark(Baseline = true, OperationsPerInvoke = 100000)]
+    public MyData NotFoundThrow()
     {
-        [Benchmark(Baseline = true, OperationsPerInvoke = 100000)]
-        public MyData NotFoundThrow()
+        try
         {
-            try
-            {
-                return GetMyDataThrow();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return GetMyDataThrow();
         }
-
-        [Benchmark(OperationsPerInvoke = 100000)]
-        public MyData NotFoundThrowWithException()
+        catch (Exception)
         {
-            try
-            {
-                return GetMyDataThrow();
-            }
-            catch (Exception exception)
-            {
-                return null;
-            }
-        }
-
-        [Benchmark (OperationsPerInvoke = 100000)]
-        public Result<MyData> NotFoundResult()
-        {
-            var result = GetMyDataErrorResult();
-            return result.Success ? result : null;
-        }
-
-        private static MyData GetMyDataThrow()
-        {
-            throw new Exception("MyData was not found");
-        }
-
-        private static Result<MyData> GetMyDataErrorResult()
-        {
-            return new ErrorResult<MyData>("MyData was not found");
+            return null;
         }
     }
 
-    [MemoryDiagnoser]
-    [SimpleJob(RuntimeMoniker.NetCoreApp50)]
-    public class FoundBenchmarks
+    [Benchmark(OperationsPerInvoke = 100000)]
+    public MyData NotFoundThrowWithException()
     {
-        [Benchmark(OperationsPerInvoke = 100000, Baseline = true)]
-        public MyData Found()
+        try
         {
-            return new MyData();
+            return GetMyDataThrow();
         }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
 
-        [Benchmark(OperationsPerInvoke = 100000)]
-        public Result<MyData> FoundResult()
-        {
-            return new SuccessResult<MyData>(new MyData());
-        }
+    [Benchmark (OperationsPerInvoke = 100000)]
+    public Result<MyData> NotFoundResult()
+    {
+        var result = GetMyDataErrorResult();
+        return result.Succeeded ? result : null;
+    }
+
+    private static MyData GetMyDataThrow()
+    {
+        throw new Exception("MyData was not found");
+    }
+
+    private static Result<MyData> GetMyDataErrorResult()
+    {
+        return Result.Failure<MyData>(new Error("NotFound", "MyData was not found"));
+    }
 }
+
+[MemoryDiagnoser]
+[SimpleJob(RuntimeMoniker.Net80)]
+public class FoundBenchmarks
+{
+    [Benchmark(OperationsPerInvoke = 100000, Baseline = true)]
+    public MyData Found()
+    {
+        return new MyData();
+    }
+
+    [Benchmark(OperationsPerInvoke = 100000)]
+    public Result<MyData> FoundResult()
+    {
+        return Result.Success(new MyData());
+    }
 }

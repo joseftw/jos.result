@@ -26,7 +26,9 @@ public class Result<TData> : Result
 
     public TData Data
     {
-        get => Succeeded ? _data! : throw new InvalidOperationException($"You can't access .{nameof(Data)} when .{nameof(Success)} is false");
+        get => Succeeded ? _data! : throw new InvalidOperationException(
+            $"You can't access .{nameof(Data)} when .{nameof(Success)} is false",
+            new Exception(Error!.ErrorMessage!));
         set => _data = value;
     }
 

@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 
 namespace JOS.Result;
 
-public class Error : Dictionary<string, object>
+public class Error
 {
-    public Error(string errorType, string errorMessage) : base(0)
+    public Error(string errorType, string errorMessage)
     {
         ErrorType = errorType ?? throw new ArgumentNullException(nameof(errorType));
         ErrorMessage = errorMessage ?? throw new ArgumentNullException(nameof(errorMessage));

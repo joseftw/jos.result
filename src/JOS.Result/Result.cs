@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace JOS.Result;
 
 public class Result
 {
     public bool Succeeded { get; }
+    [MemberNotNullWhen(true, nameof(Error))]
     public bool Failed => !Succeeded;
     public Error? Error { get; }
 
@@ -22,14 +24,14 @@ public class Result
 
 public class Result<TData> : Result
 {
-    private TData? _data;
+    private readonly TData? _data;
 
     public TData Data
     {
         get => Succeeded ? _data! : throw new InvalidOperationException(
             $"You can't access .{nameof(Data)} when .{nameof(Success)} is false",
             new Exception(Error!.ErrorMessage!));
-        set => _data = value;
+        init => _data = value;
     }
 
     internal Result(Error error) : base(succeeded: false, error)

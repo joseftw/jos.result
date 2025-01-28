@@ -13,7 +13,6 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/joseftw/jos.result</RepositoryUrl>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Version>$(NBGV_NuGetPackageVersion)</Version>
   </PropertyGroup>

@@ -8,4 +8,6 @@ public class ErrorType
     public const string NotFound = "NotFound";
     public const string Undefined = "Undefined";
     public const string Validation = "Validation";
+    public const string Serialization = "Serialization";
+    public const string Deserialization = "Deserialization";
 }

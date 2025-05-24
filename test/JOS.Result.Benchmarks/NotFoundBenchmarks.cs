@@ -1,6 +1,7 @@
 ﻿using System;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
+using JOSResult;
 
 namespace JOS.Result.Benchmarks;
 
@@ -48,7 +49,7 @@ public class NotFoundBenchmarks
 
     private static Result<MyData> GetMyDataErrorResult()
     {
-        return Result.Failure<MyData>(new Error("NotFound", "MyData was not found"));
+        return JOSResult.Result.Failure<MyData>(new Error("NotFound", "MyData was not found"));
     }
 }
 
@@ -65,6 +66,6 @@ public class FoundBenchmarks
     [Benchmark(OperationsPerInvoke = 100000)]
     public Result<MyData> FoundResult()
     {
-        return Result.Success(new MyData());
+        return JOSResult.Result.Success(new MyData());
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace JOS.Result.Tests;
+﻿using JOSResult;
+
+namespace JOS.Result.Tests;
 
 public interface IDummyInterface
 {
     Result<MyData> ExecuteGeneric();
-    Result Execute();
+    JOSResult.Result Execute();
 }
 
 public class MyData

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JOSResult;
+using System;
 using NSubstitute;
 using Shouldly;
 using Xunit;
@@ -10,7 +11,7 @@ public class ResultTests
     [Fact]
     public void ShouldThrowExceptionWhenTryingToAccessDataOnErrorResultWhenSuccessIsFalse()
     {
-        var result = Result.Failure<MyData>(new Error("error from test", "any"));
+        var result = JOSResult.Result.Failure<MyData>(new Error("error from test", "any"));
 
         var exception = Should.Throw<Exception>(() => result.Data);
 

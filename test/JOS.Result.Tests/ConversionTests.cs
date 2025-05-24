@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using JOSResult;
+using Shouldly;
 using Xunit;
 
 namespace JOS.Result.Tests;

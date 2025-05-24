@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace JOS.Result;
+namespace JOSResult;
 
 public class Result
 {

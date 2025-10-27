@@ -9,19 +9,19 @@ public class ConversionTests
     [Fact]
     public void CanConvertImplicitlyFromGenericErrorResultToErrorResult()
     {
-        var result = new FailedResult<MyData>(new Error("Some error", "Any"));
+        var result = new Failure<MyData>(new Error("Some error", "Any"));
 
-        FailedResult failedResult = result;
+        Failure failure = result;
 
-        failedResult.Error!.ErrorMessage.ShouldBe(result.Error!.ErrorMessage);
+        failure.Error!.ErrorMessage.ShouldBe(result.Error!.ErrorMessage);
     }
 
     [Fact]
     public void CanConvertImplicitlyFromGenericSuccessResultToSuccessResult()
     {
-        var genericSuccessResult = new SucceededResult<MyData>(new MyData());
+        var genericSuccessResult = new Success<MyData>(new MyData());
 
-        SucceededResult successResult = genericSuccessResult;
+        Success successResult = genericSuccessResult;
 
         successResult.Succeeded.ShouldBeTrue();
     }
